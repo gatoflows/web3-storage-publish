@@ -1,0 +1,18 @@
+name: Publish folder to IPFS via web3.storage 
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: web3-storage/add-to-web3@v2
+        id: web3
+        with:
+          web3_token: ${{ secrets.WEB3_STORAGE_TOKEN }}
+          path_to_add: ./<my_awesome_folder>
+
+      # "bafkreicysg23kiwv34eg2d7qweipxwosdo2py4ldv42nbauguluen5v6am"
+      - run: echo ${{ steps.web3.outputs.cid }}
+
+      # "https://dweb.link/ipfs/bafkreicysg23kiwv34eg2d7qweipxwosdo2py4ldv42nbauguluen5v6am"
+      - run: echo ${{ steps.web3.outputs.url }}
